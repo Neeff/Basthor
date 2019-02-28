@@ -1,0 +1,96 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col col-md-3">
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <%= link_to 'Productos', shop_products_path(@shop,@product) %>
+                <span class="badge badge-primary badge-pill"><%= @products_count %></span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <%= link_to 'Editar Tienda', edit_shop_path(@shop) %> 
+                </li>
+            </ul>
+          </div>
+
+      <div class="col col-md-3">
+          <%= form_with(model: [@shop,@product], local: true) do |form| %>
+          <div class="field">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: 'form-control'%>
+          </div>
+        
+          <div class="field">
+            <%= form.label :price %>
+            <%= form.text_field :price , class: 'form-control' %>
+          </div>
+        
+          <div class="field">
+            <%= form.label :description %>
+            <%= form.text_area :description, class: 'form-control' %>
+          </div>
+          <div class="field">
+            <%= form.label :Stock %>
+            <%= form.number_field :stock, class: 'form-control' %>
+          </div>
+
+          <div class="field">
+            <%= form.label :Image %>
+            <%= form.file_field :images, multiple:true %>
+          </div>
+
+          <div class="field">
+              <%= form.label :Category %>
+              <%= form.select :category_id, options_for_select(@select_category),prompt: 'Seleccione Categoria' %>
+            </div>
+        
+          <div class="actions">
+            <%= form.submit %>
+          </div>
+        <% end %>
+        </div>
+        <div class="col col-md-3">
+
+          <%= form_with(url: create_category_shop_path(@shop), local: true) do |f|  %>
+            <%= f.label :Categoria %>
+            <%= f.text_field :name, class: 'form-control' %>
+            <%= f.submit 'Crear' %>
+          <% end %>
+
+        </div>
+        
+      </div>
+      
+        <% if @shop.images.attached? %>
+        <div class="col col-md-12 ">
+          <div class="float-right">
+               <%= image_tag(@shop.images.second.variant(resize: '200x200'))%>
+          </div>
+        </div>
+        <% end %>
+        <div class="float-right"></div>
+        <div class="col col-md-12">
+      <%= image_tag(@shop.images.first)%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-lg-6" >
+          <div><%= @shop.mision %></div>
+        </div>
+        <div class="col col-lg-6" >
+            <div><%= @shop.vision %></div>
+          </div>
+          <div class="row">
+            <div class="col col-md-12" style="padding-top:5px;">
+              <%= @shop.description %>
+            </div>
+          </div>
+      </div>
+    </div>
+
+  
+    </div>
+  </div>
+<%= link_to 'Back', shops_path %>

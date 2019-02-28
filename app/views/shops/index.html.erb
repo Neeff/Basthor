@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<h1>Shops</h1>
+
+<%= link_to 'New Shop', new_shop_path %>
+<div class="row">
+  <div class="col col-md-3">
+      <%= form_with(model: @shop, local: true) do |form| %>
+      <%= form.text_field :search %>
+      <%= form.submit 'Buscar'%>
+  <% end %>
+  </div>
+  
+</div>
+<div class="row">
+    <% @categories.each do |category|  %>
+    <div class="col col-md-4">
+    <a href="<%= show_products_category_path(category)%>"><%= image_tag "default", class:"img-thumbnail" %></a> 
+    </div>
+    <% end %>
+  </div>
+<div class="row">
+<% @shops.each do |shop| %>
+<div class="col col-md-3">
+<div class="card" style="width: 18rem;">
+    <%= image_tag(shop.images.second.variant(resize: '200x200')) %>
+    <div class="card-body">
+      <h5 class="card-title"><%= shop.name%></h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="<%= shop_path(shop)%>" class="btn btn-primary">Ir A la tienda</a>
+    </div>
+  </div>
+</div>
+<% end %>
+</div>

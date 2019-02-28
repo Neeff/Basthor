@@ -1,0 +1,51 @@
+<%= form_with(model: shop, local: true) do |form| %>
+  <% if shop.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(shop.errors.count, "error") %> prohibited this shop from being saved:</h2>
+
+      <ul>
+      <% shop.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col col-lg-4">
+        <div class="field">
+            <%= form.hidden_field :user_id, value: current_user.id %>
+          </div>
+          <div class="field">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: 'form-control' %>
+          </div>
+        
+          <div class="field">
+            <%= form.label :description %>
+            <%= form.text_area :description, class: 'form-control'%>
+          </div>
+        
+         
+        
+          <div class="field">
+            <%= form.label :mision %>
+            <%= form.text_area :mision, class: 'form-control' %>
+          </div>
+        
+          <div class="field">
+            <%= form.label :vision %>
+            <%= form.text_area :vision, class: 'form-control' %>
+          </div>
+        
+          <div class="field">
+              <%= form.label :Images %>
+              <%= form.file_field :images ,multiple: true %>
+            </div>
+        
+          <div class="actions">
+            <%= form.submit class: 'btn btn-success'%>
+          </div>
+
+    </div>
+  </div>
+  <% end %>
