@@ -53,9 +53,10 @@
         </div>
         <div class="col col-md-3">
 
-          <%= form_with(url: create_category_shop_path(@shop), local: true) do |f|  %>
+          <%= form_with(url: shop_categories_path(@shop), scope: :category, local: true) do |f|  %>
             <%= f.label :Categoria %>
             <%= f.text_field :name, class: 'form-control' %>
+            <%= f.hidden_field :shop_id, value: @shop.id%>
             <%= f.submit 'Crear' %>
           <% end %>
 

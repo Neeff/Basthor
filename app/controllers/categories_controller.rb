@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   def create
-    @category = Category.new(name: params[:name], shop_id: params[:id])
-    @shop = Shop.find(params[:id])
+    @category = Category.new(category_params)
+    @shop = Shop.find(params[:category][:shop_id])
     respond_to do |format|
       if @category.save
         format.html { redirect_to shop_path(@shop), notice: 'Product was successfully created.' }
@@ -17,5 +17,8 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     @products_category = @category.products
   end
- 
+  private
+  def category_params
+    params.require(:category).permit(:name, :shop_id)
+  end
 end
