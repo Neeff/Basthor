@@ -1,0 +1,11 @@
+<div class="col col-md-3">
+
+        <%= form_with(model: [shop,category], local: true) do |f|  %>
+          <%= f.label :Categoria %>
+          <%= f.text_field :name, class: 'form-control' %>
+          <%= f.hidden_field :shop_id, value: @shop.id%>
+          <%= f.file_field :image %>
+          <%= f.submit 'Crear' %>
+        <% end %>
+
+      </div>

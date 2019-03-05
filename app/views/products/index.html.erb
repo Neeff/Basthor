@@ -1,20 +1,26 @@
 <p id="notice"><%= notice %></p>
 <h1>Products</h1>
-<%= link_to  "Shop",shop_path(@shop), class: 'btn btn-success' %>
-<div class="row">
-  <div class="col col-md-3">
-    <% @products.each do |product| %>
-    <div class="card" style="width: 18rem;">
-      <%= image_tag product.images.first.variant(resize: '800x500') %>
-      <div class="card-body">
-        <h5 class="card-title"><%= product.name %></h5>
-        <p class="card-text"><span><strong>$<%= product.price %></strong></span></p>
-        <p class="card-text"><%= product.description %></p>
-        <%= link_to 'Show', shop_product_path(product.shop, product) %>
-        <%= link_to 'Edit', edit_shop_product_path(product.shop, product) %>
-        <%= link_to 'Destroy', shop_product_path(product.shop, product), method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= form_with(url: search_shop_products_path) do |f| %>
+  <%= f.label :Buscar_Producto %>
+  <%= f.text_field :search %>
+  <% end %>
+
+  <%= link_to  "Shop",shop_path(@shop), class: 'btn btn-success' %>
+  <div class="row">
+      <div id="products">
+        
       </div>
+
     </div>
-  </div>
-    <% end %>
-</div>
+<script>
+  $('#search').keyup(function(){
+    $.ajax({
+      type: "GET",
+      url: "<%= search_shop_products_path%>",
+      data: {search: $('#search').val()},
+      success: function (response) {
+              
+      }
+});
+  });
+</script>

@@ -1,6 +1,7 @@
-<% @products_category.each do |product| %>
 <div class="row">
-                <div class="col col-md-3">
+<% @products_category.each do |product| %>
+
+                <div class="col col-md-4">
                   <div class="card" style="width: 18rem;">
                     <%= image_tag product.images.first.variant(resize: '800x500') %>
                     <div class="card-body">

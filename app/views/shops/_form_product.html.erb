@@ -1,0 +1,36 @@
+<div class="col col-md-3">
+        <%= form_with(model: [shop,product]) do |form| %>
+        <div class="field">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: 'form-control'%>
+        </div>
+      
+        <div class="field">
+          <%= form.label :price %>
+          <%= form.text_field :price , class: 'form-control' %>
+        </div>
+      
+        <div class="field">
+          <%= form.label :description %>
+          <%= form.text_area :description, class: 'form-control' %>
+        </div>
+        <div class="field">
+          <%= form.label :Stock %>
+          <%= form.number_field :stock, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :Image %>
+          <%= form.file_field :images, multiple:true %>
+        </div>
+
+        <div class="field">
+            <%= form.label :Category %>
+            <%= form.select :category_id, options_for_select(@select_category),prompt: 'Seleccione Categoria' %>
+          </div>
+      
+        <div class="actions">
+          <%= form.submit %>
+        </div>
+      <% end %>
+      </div>

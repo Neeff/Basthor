@@ -4,31 +4,38 @@
 <%= link_to 'New Shop', new_shop_path %>
 <div class="row">
   <div class="col col-md-3">
-      <%= form_with(model: @shop, local: true) do |form| %>
-      <%= form.text_field :search %>
-      <%= form.submit 'Buscar'%>
+      <%= form_with(model: @shop) do |form| %>
+      <%= form.label :Buscar %>
+      <%= form.text_field :search, class: 'form-control'%>
   <% end %>
   </div>
   
-</div>
+</div> <br>
 <div class="row">
     <% @categories.each do |category|  %>
-    <div class="col col-md-4">
-    <a href="<%= show_products_category_path(category)%>"><%= image_tag "default", class:"img-thumbnail" %></a> 
-    </div>
+    <div class="card bg-dark text-white">
+        <%= image_tag category.image.variant(resize: '400x400'), class:"card-img" %> 
+        <div class="card-img-overlay">
+          <h1 class="card-title"><span class="badge badge-secondary"><%= category.name %></span></h1>
+         <h1><span class="badge badge-secondary"><%= category.products.count%></span></h1>
+          <a class="btn btn-success" href="<%= shop_category_path(category.shop,category)%>">ir</a>
+        </div>
+      </div>
     <% end %>
-  </div>
+  </div><br>
 <div class="row">
-<% @shops.each do |shop| %>
-<div class="col col-md-3">
-<div class="card" style="width: 18rem;">
-    <%= image_tag(shop.images.second.variant(resize: '200x200')) %>
-    <div class="card-body">
-      <h5 class="card-title"><%= shop.name%></h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="<%= shop_path(shop)%>" class="btn btn-primary">Ir A la tienda</a>
-    </div>
+  <div id="shops">
+
   </div>
-</div>
-<% end %>
-</div>
+<script>
+  $('#search').keyup(function(){
+    $.ajax({
+      type: "GET",
+      url: "<%= search_shops_path%>",
+      data: {search: $('#search').val()},
+      success: function (response) {
+              
+      }
+});
+  });
+</script>

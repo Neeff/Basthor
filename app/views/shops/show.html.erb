@@ -15,62 +15,20 @@
             </ul>
           </div>
 
-      <div class="col col-md-3">
-          <%= form_with(model: [@shop,@product], local: true) do |form| %>
-          <div class="field">
-            <%= form.label :name %>
-            <%= form.text_field :name, class: 'form-control'%>
-          </div>
+          
+          
+          <%= render  "form_product", shop: @shop, product: @product %>
         
-          <div class="field">
-            <%= form.label :price %>
-            <%= form.text_field :price , class: 'form-control' %>
-          </div>
-        
-          <div class="field">
-            <%= form.label :description %>
-            <%= form.text_area :description, class: 'form-control' %>
-          </div>
-          <div class="field">
-            <%= form.label :Stock %>
-            <%= form.number_field :stock, class: 'form-control' %>
-          </div>
-
-          <div class="field">
-            <%= form.label :Image %>
-            <%= form.file_field :images, multiple:true %>
-          </div>
-
-          <div class="field">
-              <%= form.label :Category %>
-              <%= form.select :category_id, options_for_select(@select_category),prompt: 'Seleccione Categoria' %>
-            </div>
-        
-          <div class="actions">
-            <%= form.submit %>
-          </div>
-        <% end %>
-        </div>
-        <div class="col col-md-3">
-
-          <%= form_with(url: shop_categories_path(@shop), scope: :category, local: true) do |f|  %>
-            <%= f.label :Categoria %>
-            <%= f.text_field :name, class: 'form-control' %>
-            <%= f.hidden_field :shop_id, value: @shop.id%>
-            <%= f.submit 'Crear' %>
-          <% end %>
-
-        </div>
-        
+          <%= render  "form_category", shop: @shop, category: @category%>
+          
       </div>
       
-        <% if @shop.images.attached? %>
+      
         <div class="col col-md-12 ">
           <div class="float-right">
                <%= image_tag(@shop.images.second.variant(resize: '200x200'))%>
           </div>
         </div>
-        <% end %>
         <div class="float-right"></div>
         <div class="col col-md-12">
       <%= image_tag(@shop.images.first)%>

@@ -65,13 +65,29 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    parameters = params[:search]
+    if parameters.blank?
+      @products = Product.all
+      respond_to :js
+    elsif parameters.nil?
+      @products = Product.all
+      respond_to :js
+    else
+      @products = Product.where('name LIKE ?',"%#{parameters}%")
+      respond_to :js
+    end
+  end
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+  end
     # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:name, :price, :description, :shop_id, :category_id, images: [])
-    end
+
+  def product_params
+    params.require(:product).permit(:name, :price, :description, :shop_id, :category_id, images: [])
+  end
 end

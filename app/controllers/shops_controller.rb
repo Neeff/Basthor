@@ -25,8 +25,7 @@ class ShopsController < ApplicationController
   end
 
   # GET /shops/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /shops
   # POST /shops.json
@@ -67,15 +66,29 @@ class ShopsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def search
+    parameters = params[:search]
+    if parameters.blank?
+      @shops = Shop.all
+      respond_to :js
+    elsif parameters.nil?
+      @shops = Shop.all
+      respond_to :js
+    else
+      @shops = Shop.where('name LIKE ?',"%#{parameters}%")
+      respond_to :js
+    end
+  end
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_shop
-      @shop = Shop.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def shop_params
-      params.require(:shop).permit(:name, :description, :user_id, :mision, :vision, images: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_shop
+    @shop = Shop.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+
+  def shop_params
+    params.require(:shop).permit(:name, :description, :user_id, :mision, :vision, :images[])
+  end
 end

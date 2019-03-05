@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :set_category, only: %i[show]
+
   def create
     @category = Category.new(category_params)
     @shop = Shop.find(params[:category][:shop_id])
@@ -14,11 +16,16 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:id])
     @products_category = @category.products
   end
+
   private
+
   def category_params
-    params.require(:category).permit(:name, :shop_id)
+    params.require(:category).permit(:name, :shop_id, :image)
+  end
+
+  def set_category
+    @category = Category.find(params[:id])
   end
 end
